@@ -1,247 +1,417 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FutTrack 360° - Acompanhamento Completo de Futebol</title>
+    <title>FutTrack - Football Match Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
-    <!-- Top Notification Bar -->
-    <div class="notification-bar">
+    <header class="header">
         <div class="container">
-            <span class="notification-text"><i class="fas fa-exclamation-circle"></i> ÚLTIMA HORA: Flamengo x Palmeiras hoje às 21h no Maracanã</span>
-            <button class="close-notification"><i class="fas fa-times"></i></button>
-        </div>
-    </div>
-
-    <!-- Main Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="logo-container">
-                <img src="assets/logo.png" alt="FutTrack 360°" class="logo">
-                <div class="logo-text">
-                    <h1>FutTrack <span>360°</span></h1>
-                    <p>Acompanhamento completo do mundo do futebol</p>
-                </div>
+            <div class="logo">
+                <img src="https://via.placeholder.com/50x50" alt="FutTrack Logo">
+                <h1>FutTrack</h1>
             </div>
-
-            <div class="search-container">
-                <form class="search-form">
-                    <input type="text" placeholder="Buscar jogos, times, jogadores..." class="search-input">
-                    <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Matches</a></li>
+                    <li><a href="#"><i class="fas fa-trophy"></i> Leagues</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Stats</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> News</a></li>
+                </ul>
+            </nav>
             <div class="user-actions">
-                <button class="user-btn"><i class="fas fa-bell"></i><span class="notification-badge">3</span></button>
-                <button class="user-btn"><i class="fas fa-user"></i> Entrar</button>
-                <button class="user-btn dark-mode-toggle"><i class="fas fa-moon"></i></button>
+                <button class="btn btn-login">Login</button>
+                <button class="btn btn-signup">Sign Up</button>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </header>
 
-    <!-- Main Navigation -->
-    <nav class="main-nav">
-        <div class="container">
-            <ul class="nav-list">
-                <li class="nav-item active"><a href="#home"><i class="fas fa-home"></i> Início</a></li>
-                <li class="nav-item"><a href="#live"><i class="fas fa-bolt"></i> Ao Vivo</a></li>
-                <li class="nav-item"><a href="#matches"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
-                <li class="nav-item"><a href="#lineups"><i class="fas fa-users"></i> Escalações</a></li>
-                <li class="nav-item"><a href="#stats"><i class="fas fa-chart-pie"></i> Estatísticas</a></li>
-                <li class="nav-item"><a href="#news"><i class="fas fa-newspaper"></i> Notícias</a></li>
-                <li class="nav-item"><a href="#fantasy"><i class="fas fa-trophy"></i> Fantasy</a></li>
-                <li class="nav-item"><a href="#betting"><i class="fas fa-coins"></i> Odds</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Live Matches Bar -->
-    <div class="live-matches-bar">
-        <div class="container">
-            <div class="live-indicator">
-                <span class="live-pulse"></span>
-                <span>JOGOS AO VIVO</span>
-            </div>
-            <div class="live-matches-scroller" id="live-matches-scroller">
-                <!-- Dynamically populated by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Hero Section -->
-            <section class="hero-section">
+    <main class="main">
+        <section class="hero">
+            <div class="container">
                 <div class="hero-content">
-                    <h2>Flamengo x Palmeiras</h2>
-                    <p class="match-info">Final da Libertadores 2023 | Hoje às 21h | Maracanã</p>
-                    <div class="countdown" id="match-countdown">
-                        <div class="countdown-item">
-                            <span id="days">00</span>
-                            <span>Dias</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="hours">00</span>
-                            <span>Horas</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="minutes">00</span>
-                            <span>Min</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="seconds">00</span>
-                            <span>Seg</span>
-                        </div>
+                    <h2>Track Football Matches in Real Time</h2>
+                    <p>Live scores, lineups, stats, and more for all major leagues worldwide</p>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search for teams, matches or leagues...">
+                        <button><i class="fas fa-search"></i></button>
                     </div>
-                    <button class="btn btn-alert">Criar Alerta</button>
                 </div>
-                <div class="hero-image">
-                    <img src="assets/hero-match.jpg" alt="Flamengo x Palmeiras">
-                </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Upcoming Matches Section -->
-            <section class="section" id="upcoming-matches">
+        <section class="live-matches">
+            <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-calendar-day"></i> Próximos Jogos</h2>
-                    <div class="section-controls">
-                        <div class="date-picker-container">
-                            <input type="text" class="date-picker" placeholder="Selecione uma data">
-                        </div>
-                        <div class="league-filter">
-                            <select id="league-select">
-                                <option value="all">Todas as Ligas</option>
-                                <option value="brasileirao">Brasileirão</option>
-                                <option value="libertadores">Libertadores</option>
-                                <option value="premier">Premier League</option>
-                                <option value="champions">Champions League</option>
-                            </select>
-                        </div>
-                    </div>
+                    <h3><i class="fas fa-bolt"></i> Live Matches</h3>
+                    <a href="#" class="view-all">View All</a>
                 </div>
-
-                <div class="matches-grid" id="matches-container">
-                    <!-- Dynamically populated by JavaScript -->
+                <div class="matches-grid" id="liveMatches">
+                    <!-- Live matches will be loaded here by JavaScript -->
                 </div>
+            </div>
+        </section>
 
-                <div class="section-footer">
-                    <button class="btn btn-load-more">Carregar Mais Jogos</button>
-                </div>
-            </section>
-
-            <!-- Lineups Section -->
-            <section class="section" id="lineups">
+        <section class="upcoming-matches">
+            <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-users"></i> Escalações Táticas</h2>
-                    <div class="formation-selector">
-                        <button class="formation-btn active">4-3-3</button>
-                        <button class="formation-btn">4-4-2</button>
-                        <button class="formation-btn">3-5-2</button>
-                        <button class="formation-btn">4-2-3-1</button>
+                    <h3><i class="fas fa-calendar-alt"></i> Upcoming Matches</h3>
+                    <div class="league-filter">
+                        <select id="leagueFilter">
+                            <option value="all">All Leagues</option>
+                            <option value="premier-league">Premier League</option>
+                            <option value="la-liga">La Liga</option>
+                            <option value="serie-a">Serie A</option>
+                            <option value="bundesliga">Bundesliga</option>
+                            <option value="ligue-1">Ligue 1</option>
+                            <option value="uefa-champions-league">UEFA Champions League</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="matches-grid" id="upcomingMatches">
+                    <!-- Upcoming matches will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="match-details">
+            <div class="container">
+                <div class="match-header">
+                    <div class="teams">
+                        <div class="team home-team">
+                            <img src="https://via.placeholder.com/80x80" alt="Team Logo">
+                            <span>Manchester United</span>
+                        </div>
+                        <div class="match-info">
+                            <div class="score">2 - 1</div>
+                            <div class="status">Live 75'</div>
+                            <div class="competition">Premier League</div>
+                            <div class="date">Today, 20:00</div>
+                        </div>
+                        <div class="team away-team">
+                            <span>Chelsea</span>
+                            <img src="https://via.placeholder.com/80x80" alt="Team Logo">
+                        </div>
                     </div>
                 </div>
 
-                <div class="lineup-container">
-                    <div class="team-lineup home-team">
-                        <div class="team-header">
-                            <img src="assets/flamengo.png" alt="Flamengo" class="team-logo">
-                            <h3>Flamengo</h3>
-                            <div class="team-stats">
-                                <span>62% Posse</span>
-                                <span>5 Finalizações</span>
+                <div class="match-tabs">
+                    <button class="tab-btn active" data-tab="lineups">Lineups</button>
+                    <button class="tab-btn" data-tab="stats">Stats</button>
+                    <button class="tab-btn" data-tab="commentary">Commentary</button>
+                    <button class="tab-btn" data-tab="h2h">H2H</button>
+                </div>
+
+                <div class="tab-content active" id="lineups">
+                    <div class="lineup-container">
+                        <div class="formation-display">
+                            <div class="formation-title">4-3-3 Formation</div>
+                            <div class="pitch">
+                                <div class="formation home-formation">
+                                    <!-- Home team formation will be loaded here -->
+                                </div>
+                                <div class="formation away-formation">
+                                    <!-- Away team formation will be loaded here -->
+                                </div>
                             </div>
                         </div>
-                        <div class="football-field" id="home-lineup">
-                            <!-- Dynamically populated by JavaScript -->
-                        </div>
-                    </div>
 
-                    <div class="match-info-center">
-                        <div class="match-time">21:00</div>
-                        <div class="match-score">
-                            <span class="home-score">1</span>
-                            <span class="score-separator">-</span>
-                            <span class="away-score">1</span>
-                        </div>
-                        <div class="match-minute">63'</div>
-                    </div>
+                        <div class="lineup-details">
+                            <div class="team-lineup home-lineup">
+                                <h4>Manchester United</h4>
+                                <div class="lineup-section">
+                                    <h5>Starting XI</h5>
+                                    <ul class="player-list starting-xi">
+                                        <!-- Starting XI will be loaded here -->
+                                    </ul>
+                                </div>
+                                <div class="lineup-section">
+                                    <h5>Substitutes</h5>
+                                    <ul class="player-list substitutes">
+                                        <!-- Substitutes will be loaded here -->
+                                    </ul>
+                                </div>
+                            </div>
 
-                    <div class="team-lineup away-team">
-                        <div class="team-header">
-                            <img src="assets/palmeiras.png" alt="Palmeiras" class="team-logo">
-                            <h3>Palmeiras</h3>
-                            <div class="team-stats">
-                                <span>38% Posse</span>
-                                <span>3 Finalizações</span>
+                            <div class="team-lineup away-lineup">
+                                <h4>Chelsea</h4>
+                                <div class="lineup-section">
+                                    <h5>Starting XI</h5>
+                                    <ul class="player-list starting-xi">
+                                        <!-- Starting XI will be loaded here -->
+                                    </ul>
+                                </div>
+                                <div class="lineup-section">
+                                    <h5>Substitutes</h5>
+                                    <ul class="player-list substitutes">
+                                        <!-- Substitutes will be loaded here -->
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="football-field" id="away-lineup">
-                            <!-- Dynamically populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="stats">
+                    <div class="stats-container">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 60%;">60%</div>
+                                    <div class="stat-name">Possession</div>
+                                    <div class="away-stat" style="width: 40%;">40%</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 70%;">14</div>
+                                    <div class="stat-name">Shots</div>
+                                    <div class="away-stat" style="width: 30%;">6</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 50%;">5</div>
+                                    <div class="stat-name">Shots on Target</div>
+                                    <div class="away-stat" style="width: 50%;">5</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 45%;">9</div>
+                                    <div class="stat-name">Fouls</div>
+                                    <div class="away-stat" style="width: 55%;">11</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 60%;">6</div>
+                                    <div class="stat-name">Corners</div>
+                                    <div class="away-stat" style="width: 40%;">4</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 30%;">1</div>
+                                    <div class="stat-name">Offsides</div>
+                                    <div class="away-stat" style="width: 70%;">3</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 40%;">2</div>
+                                    <div class="stat-name">Yellow Cards</div>
+                                    <div class="away-stat" style="width: 60%;">3</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-bar">
+                                    <div class="home-stat" style="width: 0%;">0</div>
+                                    <div class="stat-name">Red Cards</div>
+                                    <div class="away-stat" style="width: 0%;">0</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="substitutes-container">
-                    <h4>Reservas</h4>
-                    <div class="substitutes-grid">
-                        <!-- Dynamically populated by JavaScript -->
+                <div class="tab-content" id="commentary">
+                    <div class="commentary-container">
+                        <div class="commentary-item">
+                            <div class="minute">75'</div>
+                            <div class="event">
+                                <i class="fas fa-futbol"></i>
+                                <p>Bruno Fernandes (Manchester United) misses the target with a shot from outside the box following a corner.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item">
+                            <div class="minute">73'</div>
+                            <div class="event">
+                                <i class="fas fa-exchange-alt"></i>
+                                <p>Substitution for Chelsea. Mason Mount replaces Hakim Ziyech.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item highlight">
+                            <div class="minute">68'</div>
+                            <div class="event">
+                                <i class="fas fa-futbol"></i>
+                                <p>GOAL! Marcus Rashford (Manchester United) scores with a right footed shot from the center of the box to the bottom right corner. Assisted by Bruno Fernandes.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item">
+                            <div class="minute">65'</div>
+                            <div class="event">
+                                <i class="fas fa-flag"></i>
+                                <p>Offside, Chelsea. Kai Havertz is caught offside.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item">
+                            <div class="minute">62'</div>
+                            <div class="event">
+                                <i class="fas fa-square yellow"></i>
+                                <p>Yellow card for Reece James (Chelsea) for a bad foul.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item highlight">
+                            <div class="minute">58'</div>
+                            <div class="event">
+                                <i class="fas fa-futbol"></i>
+                                <p>GOAL! Kai Havertz (Chelsea) scores with a header from the center of the box to the bottom left corner. Assisted by Reece James with a cross.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item">
+                            <div class="minute">55'</div>
+                            <div class="event">
+                                <i class="fas fa-futbol"></i>
+                                <p>Attempt saved. Jadon Sancho (Manchester United) right footed shot from outside the box is saved in the bottom right corner.</p>
+                            </div>
+                        </div>
+                        <div class="commentary-item highlight">
+                            <div class="minute">45'</div>
+                            <div class="event">
+                                <i class="fas fa-futbol"></i>
+                                <p>GOAL! Cristiano Ronaldo (Manchester United) scores with a left footed shot from very close range to the center of the goal following a corner.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Live Stats Section -->
-            <section class="section" id="live-stats">
+                <div class="tab-content" id="h2h">
+                    <div class="h2h-container">
+                        <div class="h2h-stats">
+                            <div class="h2h-stat">
+                                <div class="stat-value home">12</div>
+                                <div class="stat-name">Total Wins</div>
+                                <div class="stat-value away">8</div>
+                            </div>
+                            <div class="h2h-stat">
+                                <div class="stat-value home">5</div>
+                                <div class="stat-name">Draws</div>
+                                <div class="stat-value away">5</div>
+                            </div>
+                            <div class="h2h-stat">
+                                <div class="stat-value home">38</div>
+                                <div class="stat-name">Goals Scored</div>
+                                <div class="stat-value away">32</div>
+                            </div>
+                        </div>
+
+                        <div class="recent-matches">
+                            <h4>Last 5 Meetings</h4>
+                            <div class="h2h-match">
+                                <div class="date">22 Oct 2022</div>
+                                <div class="teams">
+                                    <span class="team">Chelsea</span>
+                                    <span class="score">1-1</span>
+                                    <span class="team">Manchester United</span>
+                                </div>
+                            </div>
+                            <div class="h2h-match">
+                                <div class="date">28 Apr 2022</div>
+                                <div class="teams">
+                                    <span class="team">Manchester United</span>
+                                    <span class="score">1-1</span>
+                                    <span class="team">Chelsea</span>
+                                </div>
+                            </div>
+                            <div class="h2h-match">
+                                <div class="date">28 Nov 2021</div>
+                                <div class="teams">
+                                    <span class="team">Chelsea</span>
+                                    <span class="score">1-1</span>
+                                    <span class="team">Manchester United</span>
+                                </div>
+                            </div>
+                            <div class="h2h-match">
+                                <div class="date">28 Feb 2021</div>
+                                <div class="teams">
+                                    <span class="team">Chelsea</span>
+                                    <span class="score">0-0</span>
+                                    <span class="team">Manchester United</span>
+                                </div>
+                            </div>
+                            <div class="h2h-match">
+                                <div class="date">24 Oct 2020</div>
+                                <div class="teams">
+                                    <span class="team">Manchester United</span>
+                                    <span class="score">0-0</span>
+                                    <span class="team">Chelsea</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="news-section">
+            <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-chart-line"></i> Estatísticas em Tempo Real</h2>
-                    <div class="match-period">
-                        <span class="period active">1° Tempo</span>
-                        <span class="period">2° Tempo</span>
-                        <span class="period">Jogo Inteiro</span>
-                    </div>
+                    <h3><i class="fas fa-newspaper"></i> Latest News</h3>
+                    <a href="#" class="view-all">View All</a>
                 </div>
-
-                <div class="stats-container">
-                    <div class="stats-grid">
-                        <!-- Dynamically populated by JavaScript -->
-                    </div>
-                    <div class="stats-chart-container">
-                        <canvas id="match-stats-chart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- News Section -->
-            <section class="section" id="news">
-                <div class="section-header">
-                    <h2><i class="fas fa-newspaper"></i> Últimas Notícias</h2>
-                    <div class="news-categories">
-                        <button class="news-category active">Todas</button>
-                        <button class="news-category">Brasileirão</button>
-                        <button class="news-category">Libertadores</button>
-                        <button class="news-category">Transferências</button>
-                    </div>
-                </div>
-
                 <div class="news-grid">
-                    <!-- Dynamically populated by JavaScript -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/300x200" alt="News Image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Premier League</span>
+                            <h4>Rashford's Form Could Decide Manchester United's Season</h4>
+                            <p class="news-excerpt">Marcus Rashford has scored in five consecutive matches, his best run since...</p>
+                            <div class="news-meta">
+                                <span class="author">By John Smith</span>
+                                <span class="date">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/300x200" alt="News Image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Transfer News</span>
+                            <h4>Chelsea Close to Signing Argentine Midfielder</h4>
+                            <p class="news-excerpt">Chelsea are reportedly in advanced talks to sign Enzo Fernández from Benfica...</p>
+                            <div class="news-meta">
+                                <span class="author">By Emma Johnson</span>
+                                <span class="date">5 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image">
+                            <img src="https://via.placeholder.com/300x200" alt="News Image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">La Liga</span>
+                            <h4>Barcelona Extend Lead at Top of Table</h4>
+                            <p class="news-excerpt">Barcelona moved eight points clear at the top of La Liga after a convincing...</p>
+                            <div class="news-meta">
+                                <span class="author">By Carlos Ruiz</span>
+                                <span class="date">8 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="main-footer">
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>FutTrack 360°</h4>
-                    <p>A plataforma mais completa para acompanhamento de futebol, com dados em tempo real, estatísticas avançadas e análise tática.</p>
+                    <h5>FutTrack</h5>
+                    <p>The most comprehensive football match tracking platform with live scores, stats, lineups and news.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -249,55 +419,48 @@
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-
                 <div class="footer-col">
-                    <h4>Links Rápidos</h4>
+                    <h5>Leagues</h5>
                     <ul>
-                        <li><a href="#">Sobre Nós</a></li>
-                        <li><a href="#">API para Desenvolvedores</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Contato</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Principais Ligas</h4>
-                    <ul>
-                        <li><a href="#">Brasileirão Série A</a></li>
-                        <li><a href="#">Copa Libertadores</a></li>
                         <li><a href="#">Premier League</a></li>
                         <li><a href="#">La Liga</a></li>
-                        <li><a href="#">Champions League</a></li>
+                        <li><a href="#">Serie A</a></li>
+                        <li><a href="#">Bundesliga</a></li>
+                        <li><a href="#">Ligue 1</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
-                    <h4>Newsletter</h4>
-                    <p>Assine nossa newsletter para receber atualizações e análises exclusivas.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Seu e-mail" required>
-                        <button type="submit" class="btn btn-newsletter">Assinar</button>
-                    </form>
+                    <h5>Competitions</h5>
+                    <ul>
+                        <li><a href="#">Champions League</a></li>
+                        <li><a href="#">Europa League</a></li>
+                        <li><a href="#">Europa Conference League</a></li>
+                        <li><a href="#">FA Cup</a></li>
+                        <li><a href="#">Copa del Rey</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2023 FutTrack 360°. Todos os direitos reservados.</p>
-                <div class="footer-partners">
-                    <span>Parceiros:</span>
-                    <img src="assets/partner1.png" alt="Parceiro 1">
-                    <img src="assets/partner2.png" alt="Parceiro 2">
-                    <img src="assets/partner3.png" alt="Parceiro 3">
+                <p>&copy; 2023 FutTrack. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookies</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
