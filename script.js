@@ -1,311 +1,682 @@
-// Sample data - in a real app, this would come from APIs
-const sampleMatches = [
-    {
-        id: 1,
-        homeTeam: "Flamengo",
-        awayTeam: "Palmeiras",
-        homeLogo: "https://via.placeholder.com/50",
-        awayLogo: "https://via.placeholder.com/50",
-        date: "2023-11-15",
-        time: "21:00",
-        league: "brasileirao",
-        stadium: "Maracanã",
-        competition: "Brasileirão Série A"
-    },
-    {
-        id: 2,
-        homeTeam: "Chelsea",
-        awayTeam: "Liverpool",
-        homeLogo: "https://via.placeholder.com/50",
-        awayLogo: "https://via.placeholder.com/50",
-        date: "2023-11-16",
-        time: "16:30",
-        league: "premier",
-        stadium: "Stamford Bridge",
-        competition: "Premier League"
-    },
-    {
-        id: 3,
-        homeTeam: "Barcelona",
-        awayTeam: "Real Madrid",
-        homeLogo: "https://via.placeholder.com/50",
-        awayLogo: "https://via.placeholder.com/50",
-        date: "2023-11-18",
-        time: "15:00",
-        league: "laliga",
-        stadium: "Camp Nou",
-        competition: "La Liga"
-    }
-];
-
-const sampleLineups = {
-    1: {
-        homeTeam: "Flamengo",
-        awayTeam: "Palmeiras",
-        homeFormation: "4-3-3",
-        awayFormation: "4-2-3-1",
-        homePlayers: [
-            { number: 1, name: "Santos", position: "GK" },
-            { number: 2, name: "Rodinei", position: "RB" },
-            { number: 3, name: "David Luiz", position: "CB" },
-            { number: 4, name: "Léo Pereira", position: "CB" },
-            { number: 6, name: "Ayrton Lucas", position: "LB" },
-            { number: 5, name: "Thiago Maia", position: "CM" },
-            { number: 8, name: "Gerson", position: "CM" },
-            { number: 7, name: "Everton Ribeiro", position: "CM" },
-            { number: 11, name: "Bruno Henrique", position: "LW" },
-            { number: 9, name: "Gabigol", position: "ST" },
-            { number: 10, name: "Arrascaeta", position: "RW" }
-        ],
-        awayPlayers: [
-            { number: 21, name: "Weverton", position: "GK" },
-            { number: 2, name: "Marcos Rocha", position: "RB" },
-            { number: 15, name: "Gustavo Gómez", position: "CB" },
-            { number: 13, name: "Luan", position: "CB" },
-            { number: 22, name: "Joaquín Piquerez", position: "LB" },
-            { number: 8, name: "Zé Rafael", position: "CDM" },
-            { number: 28, name: "Danilo", position: "CDM" },
-            { number: 7, name: "Dudu", position: "RM" },
-            { number: 23, name: "Raphael Veiga", position: "CAM" },
-            { number: 10, name: "Rony", position: "LM" },
-            { number: 9, name: "Rústico", position: "ST" }
-        ]
-    }
-};
-
-const sampleStats = {
-    1: {
-        possession: { home: 58, away: 42 },
-        shots: { home: 15, away: 9 },
-        shotsOnTarget: { home: 6, away: 3 },
-        corners: { home: 7, away: 4 },
-        fouls: { home: 12, away: 15 },
-        yellowCards: { home: 2, away: 3 },
-        redCards: { home: 0, away: 0 }
-    }
-};
-
-const sampleNews = [
-    {
-        id: 1,
-        title: "Flamengo vence Palmeiras e se aproxima do líder",
-        excerpt: "Em jogo emocionante no Maracanã, Flamengo vence por 2x1 com gols de Gabigol e Arrascaeta.",
-        image: "https://via.placeholder.com/400x300",
-        date: "2023-11-15",
-        author: "João Silva"
-    },
-    {
-        id: 2,
-        title: "Técnico do Palmeiras comenta derrota",
-        excerpt: "Abel Ferreira diz que time jogou bem, mas erros defensivos custaram a partida.",
-        image: "https://via.placeholder.com/400x300",
-        date: "2023-11-15",
-        author: "Maria Souza"
-    },
-    {
-        id: 3,
-        title: "Brasileirão: veja a tabela atualizada",
-        excerpt: "Com os resultados da rodada, Atlético-MG segue na liderança, mas Flamengo se aproxima.",
-        image: "https://via.placeholder.com/400x300",
-        date: "2023-11-15",
-        author: "Carlos Oliveira"
-    }
-];
-
-// DOM Elements
-const matchesContainer = document.getElementById('matches-container');
-const leagueFilter = document.getElementById('league-filter');
-const dateFilter = document.getElementById('date-filter');
-const matchSelector = document.getElementById('match-selector');
-const lineupContainer = document.getElementById('lineup-container');
-const statsContainer = document.getElementById('stats-container');
-const newsContainer = document.getElementById('news-container');
-
-// Functions
-function renderMatches(matches) {
-    matchesContainer.innerHTML = '';
-    
-    matches.forEach(match => {
-        const matchCard = document.createElement('div');
-        matchCard.className = 'match-card';
-        matchCard.innerHTML = `
-            <div class="match-teams">
-                <div class="match-team">
-                    <img src="${match.homeLogo}" alt="${match.homeTeam}">
-                    <span>${match.homeTeam}</span>
-                </div>
-                <div class="match-vs">vs</div>
-                <div class="match-team">
-                    <img src="${match.awayLogo}" alt="${match.awayTeam}">
-                    <span>${match.awayTeam}</span>
-                </div>
-            </div>
-            <div class="match-info">
-                <div>${match.competition}</div>
-                <div>${match.stadium}</div>
-                <div class="match-time">${match.date} • ${match.time}</div>
-            </div>
-        `;
-        matchesContainer.appendChild(matchCard);
-    });
+/* Base Styles */
+:root {
+    --primary-color: #1a73e8;
+    --secondary-color: #0d47a1;
+    --accent-color: #ff5722;
+    --dark-color: #121212;
+    --light-color: #f5f5f5;
+    --gray-color: #757575;
+    --light-gray: #e0e0e0;
+    --success-color: #4caf50;
+    --danger-color: #f44336;
+    --warning-color: #ff9800;
+    --info-color: #2196f3;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-function renderMatchSelector(matches) {
-    matchSelector.innerHTML = '<option value="">Selecione uma partida</option>';
-    
-    matches.forEach(match => {
-        const option = document.createElement('option');
-        option.value = match.id;
-        option.textContent = `${match.homeTeam} vs ${match.awayTeam} - ${match.date}`;
-        matchSelector.appendChild(option);
-    });
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-function renderLineup(matchId) {
-    if (!matchId) {
-        lineupContainer.innerHTML = '<p>Selecione uma partida para ver as escalações</p>';
-        return;
-    }
-    
-    const lineup = sampleLineups[matchId];
-    if (!lineup) {
-        lineupContainer.innerHTML = '<p>Escalações não disponíveis para esta partida</p>';
-        return;
-    }
-    
-    lineupContainer.innerHTML = `
-        <h3>${lineup.homeTeam} ${lineup.homeFormation} vs ${lineup.awayTeam} ${lineup.awayFormation}</h3>
-        <div class="lineup-teams">
-            <div class="lineup-team">
-                <h4>${lineup.homeTeam}</h4>
-                <ul>
-                    ${lineup.homePlayers.map(player => `<li>${player.number} - ${player.name} (${player.position})</li>`).join('')}
-                </ul>
-            </div>
-            <div class="lineup-team">
-                <h4>${lineup.awayTeam}</h4>
-                <ul>
-                    ${lineup.awayPlayers.map(player => `<li>${player.number} - ${player.name} (${player.position})</li>`).join('')}
-                </ul>
-            </div>
-        </div>
-    `;
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--dark-color);
+    background-color: #f9f9f9;
+    line-height: 1.6;
 }
 
-function renderStats(matchId) {
-    if (!matchId) {
-        statsContainer.innerHTML = '<p>Selecione uma partida para ver as estatísticas</p>';
-        return;
-    }
-    
-    const stats = sampleStats[matchId];
-    if (!stats) {
-        statsContainer.innerHTML = '<p>Estatísticas não disponíveis para esta partida</p>';
-        return;
-    }
-    
-    statsContainer.innerHTML = `
-        <h3>Estatísticas da Partida</h3>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-name">Posse de Bola</div>
-                <div class="stat-bar">
-                    <div class="stat-home" style="width: ${stats.possession.home}%">${stats.possession.home}%</div>
-                    <div class="stat-away" style="width: ${stats.possession.away}%">${stats.possession.away}%</div>
-                </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-name">Finalizações</div>
-                <div class="stat-bar">
-                    <div class="stat-home" style="width: ${(stats.shots.home / (stats.shots.home + stats.shots.away)) * 100}%">${stats.shots.home}</div>
-                    <div class="stat-away" style="width: ${(stats.shots.away / (stats.shots.home + stats.shots.away)) * 100}%">${stats.shots.away}</div>
-                </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-name">Finalizações no Gol</div>
-                <div class="stat-bar">
-                    <div class="stat-home" style="width: ${(stats.shotsOnTarget.home / (stats.shotsOnTarget.home + stats.shotsOnTarget.away)) * 100}%">${stats.shotsOnTarget.home}</div>
-                    <div class="stat-away" style="width: ${(stats.shotsOnTarget.away / (stats.shotsOnTarget.home + stats.shotsOnTarget.away)) * 100}%">${stats.shotsOnTarget.away}</div>
-                </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-name">Escanteios</div>
-                <div class="stat-value">${stats.corners.home} - ${stats.corners.away}</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-name">Faltas</div>
-                <div class="stat-value">${stats.fouls.home} - ${stats.fouls.away}</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-name">Cartões Amarelos</div>
-                <div class="stat-value">${stats.yellowCards.home} - ${stats.yellowCards.away}</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-name">Cartões Vermelhos</div>
-                <div class="stat-value">${stats.redCards.home} - ${stats.redCards.away}</div>
-            </div>
-        </div>
-    `;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 
-function renderNews(news) {
-    newsContainer.innerHTML = '';
-    
-    news.forEach(item => {
-        const newsCard = document.createElement('div');
-        newsCard.className = 'news-card';
-        newsCard.innerHTML = `
-            <div class="news-image">
-                <img src="${item.image}" alt="${item.title}">
-            </div>
-            <div class="news-content">
-                <h3 class="news-title">${item.title}</h3>
-                <p class="news-excerpt">${item.excerpt}</p>
-                <div class="news-meta">
-                    <span>${item.author}</span>
-                    <span>${item.date}</span>
-                </div>
-            </div>
-        `;
-        newsContainer.appendChild(newsCard);
-    });
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-function filterMatches() {
-    const league = leagueFilter.value;
-    const date = dateFilter.value;
-    
-    let filteredMatches = sampleMatches;
-    
-    if (league !== 'all') {
-        filteredMatches = filteredMatches.filter(match => match.league === league);
-    }
-    
-    if (date) {
-        filteredMatches = filteredMatches.filter(match => match.date === date);
-    }
-    
-    renderMatches(filteredMatches);
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-// Event Listeners
-leagueFilter.addEventListener('change', filterMatches);
-dateFilter.addEventListener('change', filterMatches);
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
 
-matchSelector.addEventListener('change', (e) => {
-    const matchId = parseInt(e.target.value);
-    renderLineup(matchId);
-    renderStats(matchId);
-});
+.btn-login {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    renderMatches(sampleMatches);
-    renderMatchSelector(sampleMatches);
-    renderNews(sampleNews);
-    
-    // Set today's date as default in date filter
-    const today = new Date().toISOString().split('T')[0];
-    dateFilter.value = today;
-    dateFilter.max = today;
-});
+.btn-login:hover {
+    background-color: rgba(26, 115, 232, 0.1);
+}
+
+.btn-signup {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-signup:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Header Styles */
+.header {
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav a {
+    font-weight: 600;
+    color: var(--gray-color);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav a:hover, .nav a.active {
+    color: var(--primary-color);
+}
+
+.nav a i {
+    font-size: 0.9rem;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.mobile-menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-bar {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-size: 1rem;
+}
+
+.search-bar button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-bar button:hover {
+    background-color: #e64a19;
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-header h3 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-header h3 i {
+    color: var(--primary-color);
+}
+
+.view-all {
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+/* Matches Grid */
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.match-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.match-card.live {
+    border-left: 4px solid var(--accent-color);
+}
+
+.match-card-header {
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.match-card-header .competition {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.match-card-header .status {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.match-card-content {
+    padding: 20px;
+}
+
+.match-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.team img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.team-name {
+    font-weight: 600;
+    text-align: center;
+}
+
+.match-score {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.match-info {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+/* Match Details Section */
+.match-details {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+.match-header {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+
+.home-team {
+    justify-content: flex-start;
+}
+
+.away-team {
+    justify-content: flex-end;
+}
+
+.team img {
+    width: 60px;
+    height: 60px;
+    margin: 0 15px;
+}
+
+.match-info {
+    text-align: center;
+    width: 40%;
+}
+
+.score {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.status {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.competition {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.date {
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+/* Match Tabs */
+.match-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.tab-btn {
+    padding: 15px 25px;
+    background: none;
+    border: none;
+    font-weight: 600;
+    color: var(--gray-color);
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition);
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Lineups Tab */
+.lineup-container {
+    display: flex;
+    gap: 30px;
+}
+
+.formation-display {
+    flex: 1;
+}
+
+.formation-title {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.pitch {
+    background-color: #4CAF50;
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.1) 50%, transparent 50%),
+                      linear-gradient(rgba(255,255,255,0.1) 50%, transparent 50%);
+    background-size: 30px 30px;
+    border-radius: 10px;
+    padding: 20px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #2E7D32;
+}
+
+.pitch::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 1;
+}
+
+.pitch::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+}
+
+.formation {
+    position: relative;
+    height: 100%;
+}
+
+.home-formation {
+    top: 10px;
+}
+
+.away-formation {
+    bottom: 10px;
+}
+
+.player {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.home-player {
+    background-color: #E53935;
+    color: white;
+}
+
+.away-player {
+    background-color: #1E88E5;
+    color: white;
+}
+
+.lineup-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.team-lineup {
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+
+.team-lineup h4 {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.lineup-section h5 {
+    margin-bottom: 10px;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+.player-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.player-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+
+.player-item:hover {
+    transform: translateX(5px);
+}
+
+.player-number {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+    font-size: 0.8rem;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.player-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.player-position {
+    font-size: 0.7rem;
+    color: var(--gray-color);
+    margin-left: auto;
+}
+
+/* Stats Tab */
+.stats-container {
+    padding: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.stat-item {
+    margin-bottom: 20px;
+}
+
+.stat-name {
+    text-align: center;
+    font-weight: 600;
+    margin: 5px 0;
+    color: var(--gray-color);
+}
+
+.stat-bar {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.home-stat {
+    background-color: #E53935;
+    color: white;
+    text-align: right;
+    padding-right: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    border-radius: 5px 0 0 5px;
+}
+
+.away-stat {
+    background-color: #1E88E5;
+    color: white;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Commentary Tab */
+.commentary-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.commentary-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    gap: 15px;
+}
+
+.commentary-item.highlight {
+    background-color: rgba(26, 115, 232, 0.05);
+    margin: 0 -20px;
+    padding: 15px 20px;
+}
+
+.minute {
+    font-weight: 600;
+    color: var(--primary-color);
+    min-width: 30px;
+}
+
+.event {
+    flex: 1;
+}
+
+.event i {
+    margin-right: 8px;
+    color: var(--gray-color);
+}
+
+.event i.fa-futbol {
+    color: var(--accent-color);
+}
+
+.event i.yellow {
+    color: #ffc107;
+}
+
+/*
